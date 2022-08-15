@@ -4,20 +4,20 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from flask_cors import CORS
 import random
 import os
 
 app = Flask(__name__)
 
 # Connect to Database
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///documents.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///documents.db").replace("postgres://", "postgresql://")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 Bootstrap(app)
-
+CORS(app)
 
 ## Words ADD Form
 class WordForm(FlaskForm):
