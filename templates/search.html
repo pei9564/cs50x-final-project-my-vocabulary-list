@@ -1,0 +1,42 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Penny's Word List{% endblock %}
+
+{% block styles %}
+<!-- use for import bootstrap style-->
+{{ super() }}
+<!-- use for import customize css style-->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+  {% if get_flashed_messages() %}
+    <p style="color:red;">{{ get_flashed_messages()[0] }}</p>
+  {% endif %}
+<h1>{{ searching_word.word }}</h1>
+<p><em>{{ searching_word.pronunciation }}</em></p>
+<p><b>(1) {{ searching_word.meaning1.split('@', 1 )[0] }}</b></p>
+<p>ex. {{ searching_word.meaning1.split('@', 1 )[1] }}</p>
+{% if searching_word.meaning2 != '@' %}
+<br><p><b>(2) {{ searching_word.meaning2.split('@', 1 )[0] }}</b></p>
+<p>ex. {{ searching_word.meaning2.split('@', 1 )[1] }}</p>
+{% endif %}
+{% if searching_word.meaning3 != '@' %}
+<br><p><b>{{ searching_word.meaning3.split('@', 1 )[0] }}</b></p>
+<p>ex. {{ searching_word.meaning3.split('@', 1 )[1] }}</p>
+{% endif %}
+
+<div id="dic-footer">
+    <hr>
+<h4>Look more in Online Dictionaries</h4>
+<a role="button" class="btn btn-outline-secondary btn-lg footer-btn" href="https://dictionary.cambridge.org/dictionary/english/{{searching_word.word}}" target="_blank">Cambridge Dic.</a>
+<a role="button" class="btn btn-outline-secondary btn-lg footer-btn" href="https://www.macmillandictionary.com/dictionary/british/{{searching_word.word}}" target="_blank">Macmillan Dic.</a>
+<a role="button" class="btn btn-outline-secondary btn-lg footer-btn" href="https://tw.dictionary.search.yahoo.com/search;_ylt=Awrtia8FdvBiy.YAHwtr1gt.;_ylu=Y29sbwN0dzEEcG9zAzEEdnRpZAMEc2VjA3Nj?p={{searching_word.word}}&fr2=cosmos&fr=sfp" target="_blank">Yahoo Dic.</a>
+</div>
+{% endblock %}

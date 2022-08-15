@@ -1,0 +1,61 @@
+body {
+text-align: center;
+padding:3.5rem 0;
+}
+
+h1 {
+ font-size: 60px;
+}
+
+h2 {
+ font-size: 45px;
+}
+
+p {
+  font-size: 20px;
+}
+
+i {
+  color: #CEE5D0;
+}
+
+.add-new-word {
+    margin: 2rem auto;
+    width: fit-content;
+}
+
+.add-new-word label {
+    margin-right: 2rem;
+    font-size: 2rem;
+    line-height: 150%;
+    text-align: left;
+}
+
+.add-new-word #submit {
+border: none;
+padding: 10px 32px;
+background-color: #e7e7e7;
+color: black;
+}
+
+#new-word-column {
+ margin: 0 3rem;
+ text-align: left;
+}
+
+#review-column {
+ margin: 3rem;
+}
+
+.review-words {
+ text-decoration:none;
+ color:black
+}
+
+#dic-footer {
+margin-top: 5rem;
+}
+
+.footer-btn {
+margin-top: 1rem;
+}

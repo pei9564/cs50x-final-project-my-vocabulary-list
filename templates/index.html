@@ -1,0 +1,79 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Penny's Word List{% endblock %}
+
+{% block styles %}
+<!-- use for import bootstrap style-->
+{{ super() }}
+<!-- use for import customize css style-->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/4c7e547f89.js" crossorigin="anonymous"></script>
+
+
+
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- show number of left words & input to add or search words-->
+
+<div>
+    <h1>{{len}} words are learning</h1>
+</div>
+
+<div class="add-new-word">
+    <form action="{{ url_for('search') }}" method="post">
+        <div class="btn-toolbar mb-3" role="toolbar">
+            <div class="input-group-text">
+            <input type="text" class="form-control" placeholder="Learn a new word" aria-label="Input group example"
+                   aria-describedby="btnGroupAddon" name="search" autocomplete="off">
+            </div>
+            <div class="btn-group me-2" role="group">
+                <button type="submit" class="btn btn-outline-secondary">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4" id="new-word-column">
+
+    {% for word in new_words: %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <a class="review-words" href="{{ url_for('search', word=word.word) }}">{{ word.word }}</a>
+                    <a href="{{ url_for('is_learned', id=word.id) }}"><i class="fa-solid fa-circle-check"></i></a>
+                </h2>
+                {% if word.pronunciation != '' %}
+                <em><p class="card-text">{{ word.pronunciation }}</p></em>
+                {% endif %}
+                <b><p class="card-text">(1) {{ word.meaning1.split('@', 1 )[0] }}</p></b>
+                <p class="card-text">ex. {{ word.meaning1.split('@', 1 )[1] }}</p>
+                {% if word.meaning2 != '@' %}
+                <br><b><p class="card-text">(2) {{ word.meaning2.split('@', 1 )[0] }}</p></b>
+                <p class="card-text">ex. {{ word.meaning2.split('@', 1 )[1] }}</p>
+                {% endif %}
+                {% if word.meaning3 != '@' %}
+                <br><b><p class="card-text">(3) {{ word.meaning3.split('@', 1 )[0] }}</p></b>
+                <p class="card-text">ex. {{ word.meaning3.split('@', 1 )[1] }}</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<a role="button" class="btn btn-outline-secondary btn-lg footer-btn" href="{{ url_for('review') }}">Review learned words</a>
+{% endblock %}

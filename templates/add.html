@@ -1,0 +1,43 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Add A New Word{% endblock %}
+{% block styles %}
+<!-- use for import bootstrap style-->
+{{ super() }}
+<!-- use for import customize css style-->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="add-new-word container">
+    <h1>Add a new word</h1>
+    {% if word != "": %}
+        <a href="https://dictionary.cambridge.org/dictionary/english/{{word}}" target="_blank">or Look on dictionary</a>
+        {% endif %}
+    {% from "_newWordForm.html" import render_field %}
+    <form method="POST" action="{{ url_for('add') }}">
+        {{ form.hidden_tag() }}
+        {{ form.word.label }} {{ form.word(autocomplete="off", value=word) }}
+        {{ render_field(form.pronunciation) }}
+
+        <hr>
+        {{ render_field(form.meaning1) }}
+        {{ render_field(form.sentence1) }}
+        {{ render_field(form.meaning2) }}
+        {{ render_field(form.sentence2) }}
+        {{ render_field(form.meaning3) }}
+        {{ render_field(form.sentence3) }}
+
+        {{ form.submit }}
+    </form>
+</div>
+
+
+{% endblock %}

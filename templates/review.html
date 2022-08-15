@@ -1,0 +1,35 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Penny's Word List{% endblock %}
+
+{% block styles %}
+<!-- use for import bootstrap style-->
+{{ super() }}
+<!-- use for import customize css style-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+  {% if get_flashed_messages() %}
+    <p style="color:red;">{{ get_flashed_messages()[0] }}</p>
+  {% endif %}
+    <h1>{{len}} words are learned</h1>
+<!-- show number of left words & input to add or search words-->
+<div class="row row-cols-3 row-cols-md-6 g-4" id="review-column">
+  {% for word in learned_words: %}
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title"><a class="review-words" href="https://dictionary.cambridge.org/dictionary/english/{{ word.word }}" target="_blank">{{ word.word }}</a></h2>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<a role="button" class="btn btn-outline-secondary btn-lg footer-btn" href="{{ url_for('home') }}">Learn new words</a>
+{% endblock %}
