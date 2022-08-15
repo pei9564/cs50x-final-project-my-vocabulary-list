@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import random
 import os
 
@@ -66,6 +66,7 @@ def home():
 
 
 @app.route("/add", methods=["GET", "POST"])
+@cross_origin()
 def add():
     form = WordForm()
 
@@ -99,6 +100,7 @@ def review():
 
 
 @app.route("/search", methods=["GET", "POST"])
+@cross_origin()
 def search(word=None):
     # POST: go from form
     if request.method == "POST":
