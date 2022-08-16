@@ -19,7 +19,7 @@
 <div class="add-new-word container">
     <h1>Add a new word</h1>
     {% if word != "": %}
-        <a href="https://dictionary.cambridge.org/dictionary/english/{{word}}" target="_blank">or Look on dictionary</a>
+        <a href={{ link }} target="_blank">or Look on dictionary</a>
         {% endif %}
     {% from "_newWordForm.html" import render_field %}
     <form method="POST" action="{{ url_for('add') }}">

@@ -61,7 +61,12 @@ def get_learned_words():
 def home():
     new_words = get_new_words()
     if len(new_words) > 10:
-        new_words = [random.choice(new_words) for _ in range(0, 11)]
+        chose_words = []
+        while len(chose_words) < 10:
+            word = random.choice(new_words)
+            if word not in chose_words:
+                chose_words.append(word)
+        return render_template("index.html", new_words=chose_words, len=len(new_words))
     return render_template("index.html", new_words=new_words, len=len(new_words))
 
 
@@ -89,8 +94,8 @@ def add():
         db.session.commit()
 
         return redirect("/")
-
-    return render_template("add.html", form=form, word=word)
+    link = f"https://dictionary.cambridge.org/dictionary/english/{word}"
+    return render_template("add.html", form=form, word=word, link=link)
 
 
 @app.route("/review")
