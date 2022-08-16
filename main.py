@@ -94,7 +94,7 @@ def add():
         db.session.commit()
 
         return redirect("/")
-    link = f"https://dictionary.cambridge.org/dictionary/english/{word}"
+    link = f"https://www.google.com.tw/search?q={word}"
     return render_template("add.html", form=form, word=word, link=link)
 
 
